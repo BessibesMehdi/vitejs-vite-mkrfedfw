@@ -12,7 +12,7 @@ const listeFilms = reactive([]);
 
 function getFilms() {
   const fetchOptions = { method: 'GET' };
-  fetch(url + 'Jardin', fetchOptions)
+  fetch(url + 'avatar', fetchOptions)
     .then((response) => {
       return response.json();
     })
@@ -35,11 +35,29 @@ onMounted(() => {
 
 </script>
 <template>
- 
   <h3>Liste des films</h3>
-  <ul>
-    <li v-for="(film, index) in listeFilms" :key="index">
-      {{film.titre}}
-    </li>
-    </ul>
+  <div class="films-container">
+    <div v-for="film in listeFilms" :key="film.id" class="film-item">
+      <img class="image" :src="'https://image.tmdb.org/t/p/w500/' + film.affiche" :alt="film.titre" />
+      <div>{{ film.titre }}</div>
+    </div>
+  </div>
 </template>
+
+<style scoped>
+.films-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.film-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 120px;
+}
+.image {
+  width: 100px;
+  height: 150px;
+}
+</style>

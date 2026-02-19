@@ -5,14 +5,17 @@ const url =
   apiKey +
   '&language=fr-FR&page=1&query=';
 
-import { reactive, onMounted } from 'vue';
+import { reactive, onMounted, watch, ref } from 'vue';
 import Film from '../film.js';
 
 const listeFilms = reactive([]);
+const props = defineProps(["critere"])
+const motcle = ref(props.critere);
+
 
 function getFilms() {
   const fetchOptions = { method: 'GET' };
-  fetch(url + 'avatar', fetchOptions)
+  fetch(url + motcle.value, fetchOptions)
     .then((response) => {
       return response.json();
     })
@@ -27,6 +30,12 @@ function getFilms() {
       console.log(error);
     });
 }
+
+watch(props, (newProps) => {
+  motcle.value = newProps.critere;
+  console.log(motcle.value);
+  getFilms();
+});
 
 onMounted(() => {
   getFilms();

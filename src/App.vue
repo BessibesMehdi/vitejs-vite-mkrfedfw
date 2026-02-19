@@ -4,6 +4,7 @@ import Films from './components/Films.vue';
 
 <template>
   <Films></Films>
+  
 
   <div class="container">
     <div class="column-1">
